@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 from tkinter import font as tkfont
 import os
 
@@ -9,17 +10,17 @@ class pageTwo(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        self.card = tk.Label(self, text="yay", height = 20, width = 15) #have the card!!!
+        self.card = tk.Label(self, text="yay", height = 20, width = 15, wraplength=300) #have the card!!!
         self.card.pack(padx = 30, pady = 10)
 
-        self.answerBox = tk.Label(self, text="Click Answer Button to Reveal Answer", height = 5, width = 50, relief="sunken")
+        self.answerBox = tk.Label(self, text="Click Answer Button to Reveal Answer", height = 5, width = 50, relief="sunken", wraplength=300)
 
         self.answerBox.pack()
 
 
         #user can type here to record their guess
-        userEntry = tk.Text(self, height = 4)
-        userEntry.pack(padx = 70, pady = 10)
+        self.userEntry = tk.Text(self, height = 4, wrap=WORD)
+        self.userEntry.pack(padx = 70, pady = 10)
 
 
         #frame to get 3 bottoms on same row
@@ -35,5 +36,6 @@ class pageTwo(tk.Frame):
         self.answerBox["text"]="the answer" #variable here!!!
 
     def next(self):
-
-        self.answerBox["text"]="next"
+        self.card["text"]="next question" #variable here!!!
+        self.answerBox["text"]="Click Answer Button to Reveal Answer"
+        self.userEntry.delete('1.0', tk.END)
