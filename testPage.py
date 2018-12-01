@@ -9,11 +9,8 @@ class pageTwo(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        card = tk.PhotoImage(file="Kara and Ichi- twister kick in face.png", height = 350)
-
-        self.cardLabel = tk.Label(self, image=card)
-
-        self.cardLabel.pack( padx = 20, pady = 10)
+        self.card = tk.Label(self, text="yay", height = 20, width = 15) #have the card!!!
+        self.card.pack(padx = 30, pady = 10)
 
         self.answerBox = tk.Label(self, text="Click Answer Button to Reveal Answer", height = 5, width = 50, relief="sunken")
 
@@ -35,8 +32,8 @@ class pageTwo(tk.Frame):
         bottomFrame.pack()
 
     def answer(self):
-        print("sigh")
+        self.answerBox["text"]="the answer" #variable here!!!
 
     def next(self):
-        sigh = "argh"
-        print(sigh)
+
+        self.answerBox["text"]="next"
