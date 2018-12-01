@@ -40,32 +40,32 @@ class sampleApp(tk.Tk):
           frame.tkraise()
 
         
-class scheduleMenu: #first window
-     def __init__(self, parent, controller):
-
-          top = self.top = Toplevel(parent)
-          top.parent = parent
-          top.geometry('300x300')
-          top.grab_set() #gives the window a forced focus
-
-          Button(top, text = "New User",command=lambda: controller.show_frame("PageOne")).pack()
-
-     def OnDouble(self, event):
-          widget = event.widget
-          selection=widget.curselection()
-          try:
-               value = widget.get(selection[0])
-               print ("selection:", selection, ": '%s'" % value)
-               f = open ("userNameChosen.txt","w+")
-               f.write (value+"\n")
-               f.close()
-               self.top.destroy()
-               #self.readTitles()
-          except:
-               pass
-     def newSchedule(self): #makes a popup and takes user input,
-                                    #it then adds it to the text file                                    
-          self.inputNewTitle = createNewTitle(self.top)
+##class scheduleMenu: #first window
+##     def __init__(self, parent, controller):
+##
+##          top = self.top = Toplevel(parent)
+##          top.parent = parent
+##          top.geometry('300x300')
+##          top.grab_set() #gives the window a forced focus
+##
+##          Button(top, text = "New User",command=lambda: controller.show_frame("PageOne")).pack()
+##
+##     def OnDouble(self, event):
+##          widget = event.widget
+##          selection=widget.curselection()
+##          try:
+##               value = widget.get(selection[0])
+##               print ("selection:", selection, ": '%s'" % value)
+##               f = open ("userNameChosen.txt","w+")
+##               f.write (value+"\n")
+##               f.close()
+##               self.top.destroy()
+##               #self.readTitles()
+##          except:
+##               pass
+##     def newSchedule(self): #makes a popup and takes user input,
+##                                    #it then adds it to the text file                                    
+##          self.inputNewTitle = createNewTitle(self.top)
         
 
 
