@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import font  as tkfont
 import os
-import pages
+import startPage
+import testPage
+import createPage
 
 class sampleApp(tk.Tk):
      #this class makes a webpage that will controll which frame we are on
@@ -20,7 +22,7 @@ class sampleApp(tk.Tk):
 
           self.frames = {}
           #i think this makes the other pages
-          for F in (pages.startPage, pages.pageOne, pages.pageTwo):
+          for F in (startPage.startPage, createPage.pageOne, testPage.pageTwo):
                page_name = F.__name__
                frame = F(parent=container, controller=self)
                self.frames[page_name] = frame
