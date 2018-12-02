@@ -9,8 +9,8 @@ class pageTwo(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        directory = "Anatomy"
-        self.array = Database.call(directory)
+        #directory = "Anatomy"
+        self.array = Database.call()
         print (self.array)
         self.card = tk.Label(self, text = self.array[1], height = 20, width = 50, wraplength=300) #have the card!!!
         self.card.pack(padx = 30, pady = 10)
@@ -38,8 +38,8 @@ class pageTwo(tk.Frame):
         self.answerBox["text"] = self.array[0] #variable here!!!
 
     def next(self):
-        directory = "Anatomy"
-        self.array = Database.call(directory)
+        #directory = "Anatomy"
+        self.array = Database.call()
         self.card["text"] = self.array[1] #variable here!!!
         #self.card["text"] = "Hi"
         #print("Hi")

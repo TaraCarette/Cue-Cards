@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import font as tkfont
 import os
-##import Database
+import Database
 
 
 class makeCategory:
@@ -115,7 +115,7 @@ class pageOne(tk.Frame):
         
         userAnswer = self.answer.get("1.0",'end-1c')
         print(userAnswer)        
-##        Database.save(1,userQuestion,userAnswer,userCategory)
+        Database.save(1,userQuestion,userAnswer,userCategory)
         self.question.delete('1.0', tk.END)
         self.answer.delete('1.0', tk.END)
         self.variable.set(self.listOfCategories[0])

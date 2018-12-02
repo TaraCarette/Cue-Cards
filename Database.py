@@ -95,19 +95,23 @@ def get(directory):
         return (array)        
     else:
         print ("You screwed up")
-        
-def call(category):
+global category
+category = "Anatomy"
+def call():
     #dataType = "1" # text
     #data = "Rhomboids, Levator scapula"
     #word = "Downwards rotation"
     #directory = "Anatomy"
     #save(dataType, data, word, directory)
     directory = "Databases/" + category
+    print(directory)
     if os.path.isdir(directory):
         array = get(directory)
         return array
     #print("Word at " + array[0])
     #print("Data at " + array[1])
-    
+
+def getters(temp):
+    category = temp 
 #call("Anatomy")
     
