@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import font as tkfont
 import os
+##import Database
 
 
 class makeCategory:
-    def __init__(self):
+    def __init__(self,parent):
+        self.parent=parent
         top = self.top = tk.Toplevel()
 ##        top.geometry('250x80')
         top.grab_set() #gives the window a forced focus
@@ -22,11 +24,13 @@ class makeCategory:
         b = tk.Button(top, text="Make", command=self.ok, font=(None, 15), height = 1, width = 10)
         b.grid(row=2,column=1, pady=5)
     def ok(self):
+        
         userInput = self.word.get()
         print(userInput)
         userInput.rstrip("\r\n")
         if not os.path.exists("Databases/" + userInput):
             os.mkdir("Databases/" + userInput)
+            self.parent.updateMenu()
         self.top.grab_release()
         self.top.destroy()
     def cancel(self):
@@ -49,8 +53,8 @@ class pageOne(tk.Frame):
 
         middleFrame = tk.Frame(self)
         #left side
-        word = tk.Text(middleFrame, height=14, width=30, font=(None, 15))
-        word.pack(side=tk.LEFT, padx=10, pady=10)
+        self.question = tk.Text(middleFrame, height=14, width=30, font=(None, 15))
+        self.question.pack(side=tk.LEFT, padx=10, pady=10)
 
         #right side
         self.listOfCategories = ["choose a category"]
@@ -72,19 +76,19 @@ class pageOne(tk.Frame):
         createCategory = tk.Button(middleFrame, text="Create Category", command=self.createPopup)
         createCategory.pack(pady=(30, 0), padx=10, fill="x")
 
-        variable = tk.StringVar(self)
-        variable.set(self.listOfCategories[0]) # default value
+        self.variable = tk.StringVar(self)
+        self.variable.set(self.listOfCategories[0]) # default value
         ##          chooseCategory = tk.OptionMenu(middleFrame, variable, "one", "two", "three")
-        chooseCategory = tk.OptionMenu(middleFrame, variable, *self.listOfCategories)
+        self.chooseCategory = tk.OptionMenu(middleFrame, self.variable, *self.listOfCategories)
         ##          chooseCategory = apply(tk.OptionMenu, (self, variable) + tuple(listOfCategories))
-        chooseCategory.config(width=20)
-        chooseCategory.config(height=1)
-        chooseCategory.pack(pady=(0, 10), padx=10)
+        self.chooseCategory.config(width=20)
+        self.chooseCategory.config(height=1)
+        self.chooseCategory.pack(pady=(0, 10), padx=10)
 
         answerLabel = tk.Label(middleFrame, text="answer description")
         answerLabel.pack(pady=(0, 0))
-        answer = tk.Text(middleFrame, height=15, width=20)
-        answer.pack(pady=(0, 10), padx=10)
+        self.answer = tk.Text(middleFrame, height=15, width=20)
+        self.answer.pack(pady=(0, 10), padx=10)
 
         middleFrame.pack()
 
@@ -92,16 +96,51 @@ class pageOne(tk.Frame):
                        command=lambda: controller.show_frame("startPage"))
         button.pack(side=tk.LEFT, fill="x", expand=True, padx=10)
         button = tk.Button(self, text="Create!",
-                       command=lambda: controller.show_frame("startPage"))
+                       command=self.saveEntry)
         button.pack(side=tk.LEFT, fill="x", expand=True, padx=30, pady=10)   
-        ##          userName.grid(row=0, column=1)
 
-    def test(self):
-        if not os.path.exists("./Databases"):
-            os.mkdir("./Databases")
-        print (self.listOfCategories)
-        self.answerLabel
         
     def createPopup(self): #makes a popup and takes user input,
                                     #it then adds it to the text file                                    
-        self.inputNewCategory = makeCategory()
+        self.inputNewCategory = makeCategory(self)
+
+#send the data over
+    def saveEntry(self):
+
+        userQuestion = self.question.get("1.0",'end-1c')
+        print(userQuestion)           
+
+        userCategory = self.variable.get()
+        print(userCategory)
+        
+        userAnswer = self.answer.get("1.0",'end-1c')
+        print(userAnswer)        
+##        Database.save(1,userQuestion,userAnswer,userCategory)
+        self.question.delete('1.0', tk.END)
+        self.answer.delete('1.0', tk.END)
+        self.variable.set(self.listOfCategories[0])
+        self.controller.show_frame("startPage")
+    #function call
+    #save(datatype,question,answer, directory) 
+    def updateMenu(self):
+        #refills and updates the categories
+        self.listOfCategories = []
+        self.listOfCategories = ["choose a category"]
+        
+        if os.path.exists("./Databases"):
+            #
+            print("hello")
+            filenames= os.listdir ("./Databases") # get all files' and folders' names in the current directory
+
+            for filename in filenames: # loop through all the files and folders
+                #
+                print(os.path.join(os.path.abspath("./Databases"), filename))
+                if os.path.isdir(os.path.join(os.path.abspath("./Databases"), filename)): # check whether the current object is a folder or not
+                    #
+                    self.listOfCategories.append(filename)
+
+        menu = self.chooseCategory["menu"]
+        menu.delete(0, "end")
+        for string in self.listOfCategories:
+            menu.add_command(label=string, 
+                             command=lambda value=string: self.variable.set(value))
