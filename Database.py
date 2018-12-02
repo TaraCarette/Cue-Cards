@@ -1,5 +1,5 @@
 import os
-from PIL import Image
+#from PIL import Image
 import pathlib
 import random
 
@@ -98,11 +98,11 @@ def get(directory):
 global category
 category = "Anatomy"
 def call():
-    #dataType = "1" # text
-    #data = "Rhomboids, Levator scapula"
-    #word = "Downwards rotation"
-    #directory = "Anatomy"
-    #save(dataType, data, word, directory)
+    dataType = "1" # text
+    data = "Deltoid, subscapularis"
+    word = "Shoulder abductors"
+    directory = "Anatomy"
+    save(dataType, data, word, directory)
     directory = "Databases/" + category
     print(directory)
     if os.path.isdir(directory):
