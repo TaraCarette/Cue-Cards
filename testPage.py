@@ -2,15 +2,17 @@ import tkinter as tk
 from tkinter import *
 from tkinter import font as tkfont
 import os
-
+import Database
 
 class pageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
-        self.card = tk.Label(self, text="yay", height = 20, width = 15, wraplength=300) #have the card!!!
+        directory = "Anatomy"
+        self.array = Database.call(directory)
+        print (self.array)
+        self.card = tk.Label(self, text = self.array[1], height = 20, width = 50, wraplength=300) #have the card!!!
         self.card.pack(padx = 30, pady = 10)
 
         self.answerBox = tk.Label(self, text="Click Answer Button to Reveal Answer", height = 5, width = 50, relief="sunken", wraplength=300)
@@ -33,9 +35,13 @@ class pageTwo(tk.Frame):
         bottomFrame.pack()
 
     def answer(self):
-        self.answerBox["text"]="the answer" #variable here!!!
+        self.answerBox["text"] = self.array[0] #variable here!!!
 
     def next(self):
-        self.card["text"]="next question" #variable here!!!
+        directory = "Anatomy"
+        self.array = Database.call(directory)
+        self.card["text"] = self.array[1] #variable here!!!
+        #self.card["text"] = "Hi"
+        #print("Hi")
         self.answerBox["text"]="Click Answer Button to Reveal Answer"
         self.userEntry.delete('1.0', tk.END)

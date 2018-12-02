@@ -105,9 +105,9 @@ def call(category):
     directory = "Databases/" + category
     if os.path.isdir(directory):
         array = get(directory)
-        print (array)
+        return array
     #print("Word at " + array[0])
     #print("Data at " + array[1])
     
-call("Anatomy")
+#call("Anatomy")
     
